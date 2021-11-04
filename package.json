@@ -1,0 +1,25 @@
+{
+  "name": "prices-formulas-view",
+  "version": "1.0.0",
+  "description": "NetRivals Frontend Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "node-sass --include-path scss scss/style.scss style.css",
+    "watch": "nodemon -e scss -x 'npm run css'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janpc/Prices-Formulas-View.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janpc/Prices-Formulas-View/issues"
+  },
+  "homepage": "https://github.com/janpc/Prices-Formulas-View#readme",
+  "devDependencies": {
+    "node-sass": "^6.0.1",
+    "nodemon": "^2.0.14"
+  }
+}
