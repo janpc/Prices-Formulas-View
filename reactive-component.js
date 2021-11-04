@@ -1,22 +1,29 @@
 export default class ReactiveComponent {
   #state = {};
   #components = [];
+  content = '<p>content not defined</>';
 
-  constructor(props) {
+  constructor(props, parent, id) {
     this.props = props;
+    this.parent = parent;
+    this.id = id;
   }
 
   setState(newState) {
     this.#state = { ...this.#state, newState };
   }
 
-  addComponent(component, state) {
-    const comp = new component(state);
+  addComponent(component, props, id) {
+    const comp = new component(props, this.self, id);
     this.#components.push(comp);
-    return comp.render();
+    comp.render();
   }
 
   render() {
-    return '<p> not defined </p>';
+    const self = new DOMParser().parseFromString(this.content, 'text/html').body
+      .firstElementChild;
+    self.setAttribute('id', this.id);
+    this.parent.appendChild(self);
+    this.self = document.getElementById(this.id);
   }
 }

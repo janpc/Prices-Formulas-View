@@ -1,5 +1,15 @@
 import ReactiveComponent from './reactive-component.js';
 
-class Main extends ReactiveComponent {}
+import SideBar from './components/SideBar.js';
 
-document.querySelector('#root').innerHTML = Main.render();
+class Main extends ReactiveComponent {
+  render() {
+    this.content = '<main ></main>';
+    super.render();
+    this.addComponent(SideBar);
+  }
+}
+
+const root = document.querySelector('#root');
+const main = new Main({}, root, 'main');
+main.render();

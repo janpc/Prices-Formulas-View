@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "NetRivals Frontend Test",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "css": "node-sass --include-path scss scss/style.scss style.css",
-    "watch": "nodemon -e scss -x 'npm run css'"
+    "watch": "nodemon -e scss -x 'npm run css'",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
