@@ -1,19 +1,21 @@
-import ReactiveComponent from '../reactive-component.js';
+import ReactiveComponent, {
+  StatelessComponent
+} from '../reactive-component.js';
 
 export default class Sidebar extends ReactiveComponent {
   addSideBarButton(name) {
-    this.addComponent(
-      Button,
-      {
-        class: 'sidebar-button',
-        text: name,
-        onClick: () => console.log(name)
-      },
-      name
-    );
+    this.addComponent(Button, {
+      class: 'sidebar-button',
+      text: name,
+      onClick: () => this.props.changePage(name),
+      id: name
+    });
   }
+
   render() {
-    this.content = `<div class="sidebar"></div>`;
+    this.content = () => {
+      return `<div class="sidebar"><p>${this.props?.page}</p></div>`;
+    };
     super.render();
     this.addSideBarButton('My products');
     this.addSideBarButton('Prices formulas');
@@ -22,10 +24,11 @@ export default class Sidebar extends ReactiveComponent {
   }
 }
 
-class Button extends ReactiveComponent {
+class Button extends StatelessComponent {
   render() {
-    this.content = `<button class="${this.props.class}">${this.props.text}</button>`;
+    this.content = () => {
+      return `<button>${this.props.text}</button>`;
+    };
     super.render();
-    this.self.addEventListener('click', this.props.onClick);
   }
 }
