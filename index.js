@@ -1,4 +1,4 @@
-import ReactiveComponent from './reactive-component';
+import ReactiveComponent from './reactive-component.js';
 
 class Main extends ReactiveComponent {}
 
