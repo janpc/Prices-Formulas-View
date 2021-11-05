@@ -7,17 +7,20 @@ class Main extends ReactiveComponent {
   haveToRerender = false;
   constructor(props, parent) {
     super(props, parent);
-    this.setState({ page: 'hola' });
+    this.setState({ page: 'My products' });
   }
 
   changePage(page) {
     this.setState({ page });
   }
-  render(props) {
-    this.content = () => {
-      return '<main ></main>';
-    };
-    super.render(props);
+
+  content = () => {
+    return '<main ></main>';
+  };
+
+  renderChilds(props) {
+    super.renderChilds(props);
+
     this.addComponent(SideBar, {
       id: 'sidebar',
       page: this.state.page,
@@ -35,4 +38,4 @@ class Main extends ReactiveComponent {
 
 const root = document.querySelector('#root');
 const main = new Main({ id: 'main', class: 'main' }, root);
-main.render();
+main.firstRender();

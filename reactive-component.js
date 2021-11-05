@@ -1,3 +1,5 @@
+import { areSameObject } from './utils/index.js';
+
 export class StatelessComponent {
   #onClick = null;
   components = [];
@@ -15,42 +17,55 @@ export class StatelessComponent {
   addComponent(component, props) {
     const comp = new component(props, this.self);
     this.components.push(comp);
-    comp.render();
+    comp.firstRender();
   }
 
   content() {
     return '<p>content not defined</>';
   }
 
-  render(parent = this.parent) {
+  renderChilds(parent = this.parent) {
+    this.parent = parent;
+  }
+
+  firstRender(parent = this.parent) {
     this.parent = parent;
 
-    this.removeSelf();
     this.createSelf();
 
     this.self = document.getElementById(this.id);
+    this.renderChilds();
+  }
+
+  rerender() {
+    this.parent = parent;
+
+    this.updateSelf();
+    this.self = document.getElementById(this.id);
+    this.renderChilds();
   }
 
   replaceSelf(props) {
-    this.props = { ...this.props, ...props };
     if (this.haveToRerender) {
-      this.render();
+      const newProps = { ...this.props, ...props };
+      /* console.log(newProps, this.props); */
+      if (!areSameObject(newProps, this.props)) {
+        /* console.log('update'); */
+        this.props = newProps;
+        this.rerender();
+      }
     } else {
       this.components.forEach((component) => {
+        this.props = { ...this.props, ...props };
+
         const newProps = this.getProps(
           component.updatePropsFromState,
           component.updatePropsFromProps
         );
-        const props = this.props;
-        component.replaceSelf({ ...props, ...newProps });
+
+        component.replaceSelf({ ...component.props, ...newProps });
       });
     }
-  }
-
-  removeSelf() {
-    this.#onClick && self.removeEventListener('click', this.#onClick);
-    this.#onClick = null;
-    this.self && this.self.remove();
   }
 
   addAttributes(self) {
@@ -61,6 +76,7 @@ export class StatelessComponent {
         : self.classList.add(...this.props.class);
     }
     if (this.props.onClick) {
+      this.#onClick && self.removeEventListener('click', this.#onClick);
       this.#onClick = self.addEventListener('click', this.props.onClick);
     }
   }
@@ -72,6 +88,15 @@ export class StatelessComponent {
     this.addAttributes(self);
 
     this.parent.appendChild(self);
+  }
+
+  updateSelf() {
+    const self = new DOMParser().parseFromString(this.content(), 'text/html')
+      .body.firstElementChild;
+
+    this.addAttributes(self);
+
+    this.self.replaceWith(self);
   }
 
   getProps(fromState, fromProps) {

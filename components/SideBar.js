@@ -4,6 +4,7 @@ import ReactiveComponent, {
 
 export default class Sidebar extends ReactiveComponent {
   haveToRerender = false;
+
   addSideBarButton(name) {
     this.addComponent(SideButton, {
       page: this.props.page,
@@ -14,11 +15,12 @@ export default class Sidebar extends ReactiveComponent {
     });
   }
 
-  render() {
-    this.content = () => {
-      return `<div class="sidebar"><img src='../img/logo.png'/></div>`;
-    };
-    super.render();
+  content = () => {
+    return `<div class="sidebar"><img src='https://www.netrivals.com/wp-content/uploads/2020/11/logo-positiu-1-1.png'/></div>`;
+  };
+
+  renderChilds() {
+    super.renderChilds();
     this.addSideBarButton('My products');
     this.addSideBarButton('Prices formulas');
     this.addSideBarButton('Market Position');
@@ -30,16 +32,13 @@ export default class Sidebar extends ReactiveComponent {
 
 class SideButton extends StatelessComponent {
   haveToRerender = true;
-  render() {
+
+  content = () => {
     this.props.class =
       this.props.text == this.props.page
         ? ['selected', 'sidebar_button']
         : 'sidebar_button';
 
-    this.content = () => {
-      return `<button>${this.props.text}</button>`;
-    };
-
-    super.render();
-  }
+    return `<button>${this.props.text}</button>`;
+  };
 }
