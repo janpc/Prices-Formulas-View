@@ -1,7 +1,7 @@
 import ReactiveComponent from './reactive-component.js';
 
 import SideBar from './components/SideBar.js';
-import StandardPage from './components/StandardPage.js';
+import MainPage from './components/MainPage.js';
 
 class Main extends ReactiveComponent {
   haveToRerender = false;
@@ -15,7 +15,7 @@ class Main extends ReactiveComponent {
   }
 
   content = () => {
-    return '<main ></main>';
+    return '<div ></div>';
   };
 
   renderChilds(props) {
@@ -27,8 +27,7 @@ class Main extends ReactiveComponent {
       updateProps: { fromState: ['page'] },
       changePage: this.changePage.bind(this)
     });
-
-    this.addComponent(StandardPage, {
+    this.addComponent(MainPage, {
       id: 'mainPage',
       updateProps: { fromState: ['page'] },
       page: this.state.page
@@ -37,5 +36,5 @@ class Main extends ReactiveComponent {
 }
 
 const root = document.querySelector('#root');
-const main = new Main({ id: 'main', class: 'main' }, root);
+const main = new Main({ id: 'fullPage', class: 'fullPage' }, root);
 main.firstRender();

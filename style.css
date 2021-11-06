@@ -122,12 +122,94 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.main {
+.pricesFormulasPage {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden; }
+  .pricesFormulasPage_info {
+    height: 150px;
+    box-sizing: border-box;
+    padding: 2rem 2rem 0rem; }
+    .pricesFormulasPage_info > h1 {
+      font-size: x-large;
+      color: #464646; }
+    .pricesFormulasPage_info > p {
+      padding-top: 2rem;
+      font-size: large;
+      color: grey; }
+
+.products_list {
+  height: calc(100% - 150px);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box; }
+
+.productItem {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px #888; }
+  .productItem_preview {
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; }
+    .productItem_preview > h3 {
+      color: darkgrey;
+      font-weight: bold;
+      font-size: medium; }
+    .productItem_preview > img {
+      margin: 0.5rem;
+      width: 100%;
+      aspect-ratio: 1; }
+    .productItem_preview_priceText {
+      color: grey;
+      margin: 0.5rem;
+      font-size: medium; }
+    .productItem_preview_price {
+      color: grey;
+      font-size: x-large; }
+  .productItem_input_inputContainer {
+    color: #464646;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem; }
+    .productItem_input_inputContainer > span {
+      font-size: large; }
+    .productItem_input_inputContainer > input {
+      width: 80%;
+      min-width: 100px;
+      padding: 0.2rem 0.5rem;
+      font-size: large;
+      border: 1px solid currentColor;
+      border-radius: 5px; }
+    .productItem_input_inputContainer > p {
+      width: 80%;
+      min-width: 100px;
+      padding: 0.2rem 0.5rem;
+      font-size: large; }
+
+.fullPage {
   width: 100vw;
   height: 100vh;
   display: flex;
-  box-sizing: border-box; }
-  .main > p {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif; }
+
+main {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden; }
+  main > h1 {
     margin: 50px;
     font-size: xx-large;
     box-sizing: border-box;

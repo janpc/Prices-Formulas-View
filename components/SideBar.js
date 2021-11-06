@@ -16,7 +16,7 @@ export default class Sidebar extends ReactiveComponent {
   }
 
   content = () => {
-    return `<div class="sidebar"><img src='https://www.netrivals.com/wp-content/uploads/2020/11/logo-positiu-1-1.png'/></div>`;
+    return `<aside class="sidebar"><img src='https://www.netrivals.com/wp-content/uploads/2020/11/logo-positiu-1-1.png'/></aside>`;
   };
 
   renderChilds() {
@@ -26,8 +26,6 @@ export default class Sidebar extends ReactiveComponent {
     this.addSideBarButton('Market Position');
     this.addSideBarButton('Settings');
   }
-
-  addChilds() {}
 }
 
 class SideButton extends StatelessComponent {

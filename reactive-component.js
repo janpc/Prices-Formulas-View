@@ -4,6 +4,7 @@ export class StatelessComponent {
   #onClick = null;
   components = [];
   haveToRerender = true;
+  stateChanged = false;
 
   constructor(props, parent) {
     const { updateProps, ...otherProps } = props;
@@ -35,6 +36,7 @@ export class StatelessComponent {
 
     this.self = document.getElementById(this.id);
     this.renderChilds();
+    this.componentDidMount?.();
   }
 
   rerender() {
@@ -48,11 +50,11 @@ export class StatelessComponent {
   replaceSelf(props) {
     if (this.haveToRerender) {
       const newProps = { ...this.props, ...props };
-      /* console.log(newProps, this.props); */
-      if (!areSameObject(newProps, this.props)) {
-        /* console.log('update'); */
+
+      if (!areSameObject(newProps, this.props) || this.stateChanged) {
         this.props = newProps;
         this.rerender();
+        this.stateChanged = false;
       }
     } else {
       this.components.forEach((component) => {
@@ -117,6 +119,7 @@ export default class ReactiveComponent extends StatelessComponent {
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
+    this.stateChanged = true;
     this.replaceSelf();
   }
 
@@ -129,5 +132,16 @@ export default class ReactiveComponent extends StatelessComponent {
     this.addAttributes(self);
 
     this.parent.appendChild(self);
+  }
+
+  updateSelf() {
+    const self = new DOMParser().parseFromString(
+      this.content(this.state),
+      'text/html'
+    ).body.firstElementChild;
+
+    this.addAttributes(self);
+
+    this.self.replaceWith(self);
   }
 }
