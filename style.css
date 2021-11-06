@@ -178,25 +178,63 @@ table {
     .productItem_preview_price {
       color: grey;
       font-size: x-large; }
-  .productItem_input_inputContainer {
-    color: #464646;
-    display: flex;
-    align-items: center;
-    gap: 0.2rem; }
-    .productItem_input_inputContainer > span {
-      font-size: large; }
-    .productItem_input_inputContainer > input {
-      width: 80%;
-      min-width: 100px;
-      padding: 0.2rem 0.5rem;
-      font-size: large;
-      border: 1px solid currentColor;
-      border-radius: 5px; }
-    .productItem_input_inputContainer > p {
-      width: 80%;
-      min-width: 100px;
-      padding: 0.2rem 0.5rem;
-      font-size: large; }
+  .productItem_input {
+    width: 33%;
+    min-width: 150px; }
+    .productItem_input_inputContainer {
+      color: #464646;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem; }
+      .productItem_input_inputContainer > span {
+        font-size: x-large; }
+      .productItem_input_inputContainer > input {
+        color: #464646;
+        width: 80%;
+        min-width: 100px;
+        padding: 0.1rem 0.25rem;
+        font-size: x-large;
+        border: 1px solid currentColor;
+        border-radius: 5px; }
+      .productItem_input_inputContainer > p {
+        width: 80%;
+        min-width: 100px;
+        padding: 0.2rem 0.5rem;
+        font-size: x-large; }
+    .productItem_input_error {
+      color: #ad2323;
+      padding-top: 0.5rem;
+      padding-left: 3.5rem;
+      font-weight: bold; }
+
+.input_button {
+  padding: 0.2rem 0.5rem;
+  font-size: medium;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  background-color: transparent;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+  margin-right: 1rem;
+  cursor: pointer;
+  color: #646464; }
+  .input_button:hover, .input_button:focus {
+    background-color: #646464;
+    border-color: #646464;
+    color: white; }
+  .input_button_Save {
+    color: #267926; }
+    .input_button_Save:hover, .input_button_Save:focus {
+      background-color: #267926;
+      border-color: #267926;
+      color: white; }
+  .input_button_Cancel {
+    color: #ad2323; }
+    .input_button_Cancel:hover, .input_button_Cancel:focus {
+      background-color: #ad2323;
+      border-color: #ad2323;
+      color: white; }
 
 .fullPage {
   width: 100vw;

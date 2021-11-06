@@ -1,0 +1,9 @@
+@mixin customBurronColors($color) {
+  color: $color;
+  &:hover,
+  &:focus {
+    background-color: $color;
+    border-color: $color;
+    color: white;
+  }
+}

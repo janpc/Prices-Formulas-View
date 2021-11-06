@@ -1,9 +1,14 @@
 import ReactiveComponent, {
   StatelessComponent
 } from '../reactive-component.js';
+import { validateFormula } from '../utils/index.js';
 
 export default class InputProductFormula extends ReactiveComponent {
-  state = { mode: 'display', inputValue: 'hola' };
+  state = {
+    mode: 'display',
+    inputValue: this.props.formula,
+    error: null
+  };
 
   addInputButton(name, onClick) {
     this.addComponent(FormulaButton, {
@@ -15,7 +20,28 @@ export default class InputProductFormula extends ReactiveComponent {
   }
 
   changeMode(mode) {
-    return () => this.setState({ mode });
+    return () => {
+      this.setState({ error: null });
+      this.setState({ mode });
+    };
+  }
+
+  cancelChanges() {
+    this.state.inputValue = this.props.formula;
+    this.changeMode('display')();
+  }
+
+  aplyChanges() {
+    const formula = document.getElementById(`${this.id}_input`).value;
+
+    this.state.inputValue = formula;
+
+    if (validateFormula(formula)) {
+      this.setState({ error: null });
+      this.props.aplyFormula(formula);
+    } else {
+      this.setState({ error: 'Incorrect formula!' });
+    }
   }
 
   saveChanges() {
@@ -27,14 +53,19 @@ export default class InputProductFormula extends ReactiveComponent {
   content = () => {
     const formula =
       this.state.mode === 'display'
-        ? `<p>${this.state.inputValue}</p>`
+        ? `<p>${this.props.formula}</p>`
         : `<input id='${this.id}_input' type="text" value='${this.state.inputValue}'/>`;
+    const error =
+      this.state.error != null
+        ? `<p class='${this.props.class}_error'>${this.state.error}</p>`
+        : '';
 
     return `<div>
               <div class='${this.props.class}_inputContainer'>
                 <span>f(x)=</span>
                 ${formula}
               </div>
+              ${error}
             </div>`;
   };
 
@@ -43,8 +74,8 @@ export default class InputProductFormula extends ReactiveComponent {
     if (this.state.mode === 'display') {
       this.addInputButton('Edit', this.changeMode('edit').bind(this));
     } else {
-      this.addInputButton('Cancel', this.changeMode('display').bind(this));
-      this.addInputButton('Aply');
+      this.addInputButton('Cancel', this.cancelChanges.bind(this));
+      this.addInputButton('Aply', this.aplyChanges.bind(this));
       this.addInputButton('Save', this.saveChanges.bind(this));
     }
   }
