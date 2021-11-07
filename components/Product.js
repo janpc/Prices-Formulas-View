@@ -7,6 +7,10 @@ import InputProductFormula from './InputProductFormula.js';
 
 export default class Product extends ReactiveComponent {
   haveToRerender = false;
+
+  constructor(props, parent) {
+    super(props, parent);
+  }
   state = {
     modifiedPrice: aplyFormula(
       this.props.product.initialPrice,
@@ -38,8 +42,13 @@ export default class Product extends ReactiveComponent {
     this.addComponent(InputProductFormula, {
       formula: this.props.product.formula,
       id: `${this.id}_inputContainer`,
+      updateProps: {
+        fromProps: [{ name: 'formula', index: 'formula', stateName: 'product' }]
+      },
       class: `${this.props.class}_input`,
-      aplyFormula: this.handleAplyFormula.bind(this)
+      aplyFormula: this.handleAplyFormula.bind(this),
+      saveProduct: this.props.saveProduct,
+      productId: this.props.product.id
     });
 
     this.addComponent(ProductPreview, {

@@ -21,8 +21,7 @@ export default class InputProductFormula extends ReactiveComponent {
 
   changeMode(mode) {
     return () => {
-      this.setState({ error: null });
-      this.setState({ mode });
+      this.setState({ error: null, mode, inputValue: this.props.formula });
     };
   }
 
@@ -45,9 +44,16 @@ export default class InputProductFormula extends ReactiveComponent {
   }
 
   saveChanges() {
-    const value = document.getElementById(`${this.id}_input`).value;
-    this.setState({ inputValue: value });
-    this.changeMode('display')();
+    const f = document.getElementById(`${this.id}_input`).value;
+
+    if (validateFormula(f)) {
+      this.setState({ error: null, mode: 'display' });
+      if (this.props.saveProduct(f, this.props.productId)) {
+        this.props.aplyFormula(f);
+      }
+    } else {
+      this.setState({ error: 'Incorrect formula!' });
+    }
   }
 
   content = () => {

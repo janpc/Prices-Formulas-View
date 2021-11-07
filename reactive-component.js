@@ -17,7 +17,9 @@ export class StatelessComponent {
 
   addComponent(component, props) {
     const comp = new component(props, this.self);
+
     this.components.push(comp);
+
     comp.firstRender();
   }
 
@@ -27,6 +29,7 @@ export class StatelessComponent {
 
   renderChilds(parent = this.parent) {
     this.parent = parent;
+    this.components = [];
   }
 
   firstRender(parent = this.parent) {
@@ -40,8 +43,6 @@ export class StatelessComponent {
   }
 
   rerender() {
-    this.parent = parent;
-
     this.updateSelf();
     this.self = document.getElementById(this.id);
     this.renderChilds();
@@ -49,8 +50,8 @@ export class StatelessComponent {
 
   replaceSelf(props) {
     if (this.haveToRerender) {
-      const newProps = { ...this.props, ...props };
-
+      const newProps =
+        props != undefined ? { ...this.props, ...props } : this.props;
       if (!areSameObject(newProps, this.props) || this.stateChanged) {
         this.props = newProps;
         this.rerender();
@@ -59,15 +60,15 @@ export class StatelessComponent {
     } else {
       this.components.forEach((component) => {
         this.props = { ...this.props, ...props };
-
         const newProps = this.getProps(
           component.updatePropsFromState,
           component.updatePropsFromProps
         );
-
         component.replaceSelf({ ...component.props, ...newProps });
       });
     }
+
+    this.componentDidUpdate?.();
   }
 
   addAttributes(self) {
@@ -92,6 +93,10 @@ export class StatelessComponent {
     this.parent.appendChild(self);
   }
 
+  removeSelf() {
+    this.self.remove();
+  }
+
   updateSelf() {
     const self = new DOMParser().parseFromString(this.content(), 'text/html')
       .body.firstElementChild;
@@ -104,11 +109,20 @@ export class StatelessComponent {
   getProps(fromState, fromProps) {
     let newProps = {};
     const s = this.state;
+    const p = this.props;
     fromState?.forEach((el) => {
-      newProps[el] = s[el];
+      if (typeof el === 'object') {
+        newProps[el.name] = s[el.stateName][el.index];
+      } else {
+        newProps[el] = s[el];
+      }
     });
     fromProps?.forEach((el) => {
-      newProps[el] = this.props[el];
+      if (typeof el === 'object') {
+        newProps[el.name] = p[el.stateName][el.index];
+      } else {
+        newProps[el] = p[el];
+      }
     });
     return newProps;
   }
