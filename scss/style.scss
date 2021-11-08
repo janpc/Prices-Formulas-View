@@ -1,5 +1,7 @@
 @import 'reset', 'product';
 
+$headerHeigth: 80px;
+
 .fullPage {
   width: 100vw;
   height: 100vh;
@@ -49,7 +51,71 @@ main {
     & + .selected,
     &:hover,
     &:focus {
-      background-color: lightgrey;
+      background-color: grey;
     }
+  }
+}
+.mobile-header {
+  display: none;
+  width: 100vw;
+  height: $headerHeigth;
+  justify-content: space-between;
+  align-items: center;
+  background-color: grey;
+
+  position: fixed;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  & > img {
+    max-height: 40px;
+  }
+
+  &_button {
+    margin: 0;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: medium;
+    cursor: pointer;
+    background-color: rgb(70, 70, 70);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    transition: all 0.2s ease-in-out;
+
+    & + .selected,
+    &:hover,
+    &:focus {
+      background-color: lightgrey;
+      color: rgb(70, 70, 70);
+      box-shadow: 1px 1px 1px black;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+
+    & > img {
+      display: none;
+    }
+  }
+  .mobile-header {
+    display: flex;
+  }
+  main {
+    margin-top: $headerHeigth;
+    height: calc(100vh - 80px);
+    box-sizing: border-box;
+  }
+
+  .show {
+    display: flex;
   }
 }

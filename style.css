@@ -236,6 +236,40 @@ table {
       border-color: #ad2323;
       color: white; }
 
+@media (max-width: 800px) {
+  .productItem {
+    flex-wrap: wrap;
+    gap: 2rem; }
+    .productItem_preview {
+      order: 1;
+      max-width: 40%; }
+    .productItem_input {
+      order: 2;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; }
+      .productItem_input_inputContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center; }
+        .productItem_input_inputContainer > p {
+          width: fit-content;
+          min-width: 0;
+          padding: 0.2rem 0.5rem; }
+      .productItem_input_error {
+        width: 100%; } }
+
+@media (max-width: 425px) {
+  .productItem_preview {
+    order: 0;
+    max-width: 80%; }
+    .productItem_preview:not(:first-of-type) > h3,
+    .productItem_preview:not(:first-of-type) > img {
+      display: none; }
+  .productItem_input {
+    order: 0; } }
+
 .fullPage {
   width: 100vw;
   height: 100vh;
@@ -276,4 +310,51 @@ main {
     font-size: medium;
     cursor: pointer; }
     .sidebar_button + .selected, .sidebar_button:hover, .sidebar_button:focus {
-      background-color: lightgrey; }
+      background-color: grey; }
+
+.mobile-header {
+  display: none;
+  width: 100vw;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: grey;
+  position: fixed;
+  padding: 2rem;
+  box-sizing: border-box; }
+  .mobile-header > img {
+    max-height: 40px; }
+  .mobile-header_button {
+    margin: 0;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: medium;
+    cursor: pointer;
+    background-color: #464646;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    box-shadow: 2px 2px 5px black;
+    transition: all 0.2s ease-in-out; }
+    .mobile-header_button + .selected, .mobile-header_button:hover, .mobile-header_button:focus {
+      background-color: lightgrey;
+      color: #464646;
+      box-shadow: 1px 1px 1px black; }
+
+@media (max-width: 700px) {
+  .sidebar {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px; }
+    .sidebar > img {
+      display: none; }
+  .mobile-header {
+    display: flex; }
+  main {
+    margin-top: 80px;
+    height: calc(100vh - 80px);
+    box-sizing: border-box; }
+  .show {
+    display: flex; } }

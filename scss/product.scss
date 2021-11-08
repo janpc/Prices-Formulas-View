@@ -42,6 +42,7 @@
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 1px 1px 5px #888;
+
   &_preview {
     max-width: 200px;
     display: flex;
@@ -135,5 +136,59 @@
   &_Cancel {
     $color: rgb(173, 35, 35);
     @include customBurronColors($color);
+  }
+}
+
+@media (max-width: 800px) {
+  .productItem {
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    &_preview {
+      order: 1;
+      max-width: 40%;
+    }
+
+    &_input {
+      order: 2;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      &_inputContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        & > p {
+          width: fit-content;
+          min-width: 0;
+          padding: 0.2rem 0.5rem;
+        }
+      }
+      &_error {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .productItem {
+    &_preview {
+      order: 0;
+      max-width: 80%;
+
+      &:not(:first-of-type) {
+        & > h3,
+        & > img {
+          display: none;
+        }
+      }
+    }
+    &_input {
+      order: 0;
+    }
   }
 }
