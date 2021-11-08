@@ -57,21 +57,23 @@ export default class InputProductFormula extends ReactiveComponent {
   }
 
   content = () => {
-    const formula =
-      this.state.mode === 'display'
-        ? `<p>${this.props.formula}</p>`
-        : `<input id='${this.id}_input' type="text" value='${this.state.inputValue}'/>`;
-    const error =
-      this.state.error != null
-        ? `<p class='${this.props.class}_error'>${this.state.error}</p>`
-        : '';
+    const { class: classname, formula } = this.props;
+    const { inputValue, error, mode } = this.state;
+
+    const formulaComponent =
+      mode === 'display'
+        ? `<p>${formula}</p>`
+        : `<input id='${this.id}_input' type="text" value='${inputValue}'/>`;
+
+    const errorComponent =
+      error != null ? `<p class='${classname}_error'>${error}</p>` : '';
 
     return `<div>
-              <div class='${this.props.class}_inputContainer'>
+              <div class='${classname}_inputContainer'>
                 <span>f(x)=</span>
-                ${formula}
+                ${formulaComponent}
               </div>
-              ${error}
+              ${errorComponent}
             </div>`;
   };
 

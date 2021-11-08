@@ -14,15 +14,24 @@ export default class ProductList extends StatelessComponent {
     super(props, parent);
   }
 
-  handleSaveProduct(formula, id) {
+  changeFormulaToProducts(formula, id) {
     const products = [];
+
     this.props.products.forEach((p) => {
       const product = { ...p };
+
       if (p.id === id) {
         product.formula = formula;
       }
+
       products.push(product);
     });
+
+    return products;
+  }
+
+  handleSaveProduct(formula, id) {
+    const products = this.changeFormulaToProducts(formula, id);
     const newProducts = saveProducts(products);
 
     if (newProducts) {

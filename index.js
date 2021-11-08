@@ -6,10 +6,11 @@ import MobileHeadre from './components/MobileHeader.js';
 
 class Main extends ReactiveComponent {
   haveToRerender = false;
-  constructor(props, parent) {
-    super(props, parent);
-    this.setState({ page: 'My products', isShownSidebar: false });
-  }
+
+  state = {
+    page: 'My products',
+    isShownSidebar: false
+  };
 
   componentDidUpdate() {
     const sidebar = document.getElementById('sidebar');

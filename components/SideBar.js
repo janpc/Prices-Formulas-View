@@ -29,14 +29,12 @@ export default class Sidebar extends ReactiveComponent {
 }
 
 class SideButton extends StatelessComponent {
-  haveToRerender = true;
-
   content = () => {
-    this.props.class =
-      this.props.text == this.props.page
-        ? ['selected', 'sidebar_button']
-        : 'sidebar_button';
+    const { text, page } = this.props;
 
-    return `<button>${this.props.text}</button>`;
+    this.props.class =
+      text == page ? ['selected', 'sidebar_button'] : 'sidebar_button';
+
+    return `<button>${text}</button>`;
   };
 }

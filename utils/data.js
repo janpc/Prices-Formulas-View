@@ -1,3 +1,8 @@
+export function saveProducts(products) {
+  localStorage.setItem('PricesFormulaView-data', JSON.stringify(products));
+  return products;
+}
+
 export function getProducts() {
   var data = localStorage.getItem('PricesFormulaView-data');
 
@@ -39,9 +44,4 @@ export function getProducts() {
         'https://www.backmarket.es/cdn-cgi/image/format=auto,quality=75,width=1920/https://d1eh9yux7w8iql.cloudfront.net/product_images/1588250988.5906856.jpg'
     }
   ];
-}
-
-export function saveProducts(products) {
-  localStorage.setItem('PricesFormulaView-data', JSON.stringify(products));
-  return products;
 }

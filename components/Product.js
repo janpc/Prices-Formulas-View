@@ -8,9 +8,6 @@ import InputProductFormula from './InputProductFormula.js';
 export default class Product extends ReactiveComponent {
   haveToRerender = false;
 
-  constructor(props, parent) {
-    super(props, parent);
-  }
   state = {
     modifiedPrice: aplyFormula(
       this.props.product.initialPrice,
@@ -31,33 +28,35 @@ export default class Product extends ReactiveComponent {
   renderChilds() {
     super.renderChilds();
 
+    const { product, class: className, saveProduct } = this.props;
+
     this.addComponent(ProductPreview, {
-      product: this.props.product,
+      product,
       priceText: 'Original price:',
       updateProps: { fromProps: ['product'] },
       id: `${this.id}-original`,
-      class: `${this.props.class}_preview`
+      class: `${className}_preview`
     });
 
     this.addComponent(InputProductFormula, {
-      formula: this.props.product.formula,
+      formula: product.formula,
       id: `${this.id}_inputContainer`,
       updateProps: {
         fromProps: [{ name: 'formula', index: 'formula', stateName: 'product' }]
       },
-      class: `${this.props.class}_input`,
+      class: `${className}_input`,
       aplyFormula: this.handleAplyFormula.bind(this),
-      saveProduct: this.props.saveProduct,
-      productId: this.props.product.id
+      saveProduct: saveProduct,
+      productId: product.id
     });
 
     this.addComponent(ProductPreview, {
-      product: this.props.product,
+      product,
       modifiedPrice: this.state.modifiedPrice,
       priceText: 'Modified price:',
       updateProps: { fromProps: ['product'], fromState: ['modifiedPrice'] },
       id: `${this.id}-modified`,
-      class: `${this.props.class}_preview`
+      class: `${className}_preview`
     });
   }
 }
@@ -76,12 +75,14 @@ class ProductPreview extends StatelessComponent {
   renderChilds() {
     super.renderChilds();
 
+    const { product, class: className, modifiedPrice } = this.props;
+
     this.addComponent(PricePreview, {
-      product: this.props.product,
-      modifiedPrice: this.props.modifiedPrice,
+      product,
+      modifiedPrice: modifiedPrice,
       updateProps: { fromProps: ['product', 'modifiedPrice'] },
       id: `${this.id}_price`,
-      class: `${this.props.class}_price`
+      class: `${className}_price`
     });
   }
 }

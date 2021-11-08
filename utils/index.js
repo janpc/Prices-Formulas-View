@@ -55,7 +55,7 @@ function getBraketsPositions(formula) {
 function firstCharacterIsCorrect(character) {
   if (!isNaN(character)) return true;
 
-  if (['+', '-', 'x', 'X'].includes(character)) {
+  if (['+', '-', 'x', 'X', '.'].includes(character)) {
     return true;
   }
   return false;

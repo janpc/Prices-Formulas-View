@@ -11,11 +11,19 @@ export default class MobileHeadre extends ReactiveComponent {
 
   renderChilds() {
     super.renderChilds();
+
+    const {
+      toggleSidebarVisibility,
+      id,
+      class: classname,
+      isShownSidebar
+    } = this.props;
+
     this.addComponent(Button, {
-      onClick: () => this.props.toggleSidebarVisibility(),
-      id: this.props.id + '_button',
-      class: this.props.class + '_button',
-      isShownSidebar: this.props.isShownSidebar,
+      onClick: () => toggleSidebarVisibility(),
+      id: id + '_button',
+      class: classname + '_button',
+      isShownSidebar: isShownSidebar,
       updateProps: { fromProps: ['isShownSidebar'] }
     });
   }

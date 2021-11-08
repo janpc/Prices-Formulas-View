@@ -22,17 +22,21 @@ export default class PricesFormulasPage extends ReactiveComponent {
   }
 
   renderChilds() {
-    if (this.state.products) {
+    const { products } = this.state;
+    const { class: className } = this.props;
+
+    if (products) {
       super.renderChilds();
+
       this.addComponent(TopInfo, {
-        products: this.state.products,
+        products: products,
         updateProps: { fromState: ['products'] },
-        id: `${this.props.class}_info`,
-        class: `${this.props.class}_info`
+        id: `${className}_info`,
+        class: `${className}_info`
       });
 
       this.addComponent(ProductList, {
-        products: this.state.products,
+        products: products,
         updateProps: { fromState: ['products'] },
         id: 'products_list',
         class: 'products_list',
@@ -45,6 +49,7 @@ export default class PricesFormulasPage extends ReactiveComponent {
 class TopInfo extends StatelessComponent {
   content = () => {
     const count = this.props.products?.length;
+
     const productsText = `Showing ${
       count > 49 ? 50 : count
     } of ${count} products:`;
