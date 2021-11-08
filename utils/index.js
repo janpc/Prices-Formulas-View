@@ -27,6 +27,9 @@ export function validateFormula(formula) {
       return false;
     }
   }
+  if (!lastCharacterIsCorrect(formula[formula.length - 1])) {
+    return false;
+  }
   return true;
 }
 
@@ -59,6 +62,13 @@ function firstCharacterIsCorrect(character) {
     return true;
   }
   return false;
+}
+
+function lastCharacterIsCorrect(character) {
+  if (['+', '-', '/', '*', '%', '^', '.'].includes(character)) {
+    return false;
+  }
+  return true;
 }
 
 function thisCharacterIsCorrect(char, charBefore) {
